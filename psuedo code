@@ -1,0 +1,55 @@
+psuedo code
+
+On start button click
+	Call gameStart function
+
+	Variable for question1 check. Set to true
+	Variable for question2 check. Set to true
+	Variable for question3 check. Set to true
+	Variable for question4 check. Set to true
+	Variable for question5 check. Set to true
+	Variable for question counter
+	Variable for correct answer counter
+	Variable for incorrect answer counter
+
+	selectQuestion function
+		Select random method from question object
+
+	runGame function
+		Conditional to check if question counter is less than 0
+			If question counter is greater than 0 then
+					Condictional check if question is true or false
+						If question is true then
+							Set question variable to false
+							Start question countdown
+							Add/remove class on hover
+							Conditional if player selects wrong answer
+								Stop question countdown
+								Start round countdown
+									Call selectQuestion function
+								Append "Incorrect!" text to result id
+								Add class for right answer
+								Increment incorrect answer variable
+							Else
+								Stop question countdown
+								Start round countdown
+									Call selectQuestion function
+								Append "Correct!" text to result id
+								Add class for right answer
+								Increment correct answer variable
+						If question is false then
+							Call selectQuestion function
+
+		 	Game object
+				Question1: function
+					Append question to question div
+					Append answers1 to answer 1 div
+					Append answers2 to answer 2 div
+					Append answers3 to answer 3 div
+					Append answers4 to answer 4 div
+					Call runGame function
+		Else
+			Append correct answers to answer 1 id
+			Append incorrect answers to answer 3 id
+
+
