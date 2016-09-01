@@ -14,6 +14,8 @@ $(document).ready(function(){
 	$($startButton).click(function(){
 
 		var trivia = {
+			timer: 30,
+
 			question1: function(){
 				console.log("Trivia object works");
 				$($question).html("This is a sample for question1?");
@@ -65,21 +67,53 @@ $(document).ready(function(){
 			},
 		};
 		
+		var gameTimer;
 		$(this).hide();
 		console.log("Start click works");
 		trivia.question1();
-		
+
 		function runGame(goodAnswer, badAnswer1, badAnswer2, badAnswer3){
+
+			var gameTimer = setInterval(function(){timerCountdown(goodAnswer)}, 1000);
+
 			$(goodAnswer).click(function(){
 				$("#result").html("Correct!")
+				clearInterval(gameTimer);
 			});
 			
-			$(badAnswer1, badAnswer2, badAnswer3).click(function(){
-				$("#result").html("Incorrect!")
+			$(badAnswer1).click(function(){
+				badResult();
+				clearInterval(gameTimer);
 			});
-			
+
+			$(badAnswer2).click(function(){
+				badResult();
+				clearInterval(gameTimer);
+			});
+
+			$(badAnswer3).click(function(){
+				badResult();
+				clearInterval(gameTimer);
+			});	
 		};
 
+		function badResult(goodAnswer){
+			$("#result").html("Incorrect! the correct answer is" + goodAnswer);
+		};
+
+		function timerCountdown(goodAnswer){
+			if (trivia.timer > 0){
+				trivia.timer--
+				$(".time").html(trivia.timer);
+				console.log(trivia.timer);
+				clearInterval(gameTimer);
+			}
+			else{
+				clearInterval(gameTimer);
+				console.log("Time is up! Correct answer is...");
+				$("#result").html("<p>Time is up! The correct answer is " + goodAnswer + "</p>")
+			}
+		}; 
 
 
 
