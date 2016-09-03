@@ -7,6 +7,8 @@ $(document).ready(function(){
 	var $answer3 = $('#answer3');
 	var $answer4 = $('#answer4');
 	var selectedQuestions = [];
+	var correctCount = 0;
+	var incorrectCount = 0;
 
 	$($startButton).hover(function(){
 		$($startButton).toggleClass("button-hover");
@@ -19,51 +21,51 @@ $(document).ready(function(){
 
 			question1: function(){
 				console.log("Trivia object works");
-				$($question).html("This is a sample for question1?");
-				$($answer1).html("This is answer 1");
-				$($answer2).html("This is answer 2");
-				$($answer3).html("This is answer 3");
-				$($answer4).html("This is answer 4");
+				$($question).html("What rock and roll start was the insipiration for Jack Sparrow?");
+				$($answer1).html("Keith Richards");
+				$($answer2).html("Mick Jagger");
+				$($answer3).html("Steven Tyler");
+				$($answer4).html("Meatloaf");
 				runGame($answer1, $answer2, $answer3, $answer4);
 			},
 
 			question2: function(){
 				console.log("Trivia object works");
-				$($question).html("This is a sample for question2?");
-				$($answer1).html("This is answer 1");
-				$($answer2).html("This is answer 2");
-				$($answer3).html("This is answer 3");
-				$($answer4).html("This is answer 4");
+				$($question).html("What was the name of the volleyball in Castaway?");
+				$($answer1).html("Charlie");
+				$($answer2).html("Wilson");
+				$($answer3).html("Spalding");
+				$($answer4).html("Jimmy");
 				runGame($answer2, $answer1, $answer3, $answer4);
 			},
 
 			question3: function(){
 				console.log("Trivia object works");
-				$($question).html("This is a sample for question3?");
-				$($answer1).html("This is answer 1");
-				$($answer2).html("This is answer 2");
-				$($answer3).html("This is answer 3");
-				$($answer4).html("This is answer 4");
+				$($question).html("What actor took over the role of Jason Bourne from Matt Damon?");
+				$($answer1).html("Ben Affleck");
+				$($answer2).html("Channing Tatum");
+				$($answer3).html("Jeremy Renner");
+				$($answer4).html("John Ham");
 				runGame($answer3, $answer1, $answer2, $answer4);
 			},
 
 			question4: function(){
 				console.log("Trivia object works");
-				$($question).html("This is a sample for question4?");
-				$($answer1).html("This is answer 1");
-				$($answer2).html("This is answer 2");
-				$($answer3).html("This is answer 3");
-				$($answer4).html("This is answer 4");
+				$($question).html("How many films are in the Harry Potter franchise?");
+				$($answer1).html("5");
+				$($answer2).html("7");
+				$($answer3).html("6");
+				$($answer4).html("8");
 				runGame($answer4, $answer1, $answer2, $answer3);
 			},
 
 			question5: function(){
 				console.log("Trivia object works");
-				$($question).html("This is a sample for question5?");
-				$($answer1).html("This is answer 1");
-				$($answer2).html("This is answer 2");
-				$($answer3).html("This is answer 3");
-				$($answer4).html("This is answer 4");
+				$($question).html("Which two actors have won oscars for playing the same character?");
+				$($answer1).html("Marlon Brando and Robert Di Niro as Vito Corleone");
+				$($answer2).html("John Wayne and Jeff Bridges as Rooster Cogburn");
+				$($answer3).html("Ewan McGregor and Alec Guinness as Obi-Wan Kenobi");
+				$($answer4).html("Martin Freeman and Ian Holm as Bilbo Baggins");
 				runGame($answer1, $answer2, $answer3, $answer4);
 			},
 		};
@@ -105,12 +107,14 @@ $(document).ready(function(){
 				}
 				else{
 					console.log("Error: Question was not selected");
-				}
+				};
 			}
 			
 			else{
 				console.log("Game over");
-			}
+				displayEndGame();
+
+			};
 			
 		};
 
@@ -119,6 +123,7 @@ $(document).ready(function(){
 
 			$(goodAnswer).click(function(){
 				$("#result").html("Correct!")
+				correctCount++;
 				clearInterval(gameTimer);
 				setTimeout(selectQuestion(), 3000);
 				trivia.timer = 30;
@@ -144,6 +149,7 @@ $(document).ready(function(){
 		};
 
 		function badResult(){
+			incorrectCount++;
 			$("#result").html("Incorrect!");
 		};
 
@@ -157,7 +163,13 @@ $(document).ready(function(){
 				clearInterval(gameTimer);
 				$("#result").html("<p>Time is up! The correct answer is " + goodAnswer + "</p>")
 				setTimeout(selectQuestion(), 3000);
-			}
+			};
 		}; 
+		
+		function displayEndGame(){
+			$($answer1).html(correctCount);
+			$($answer2).html(incorrectCount);
+			$($startButton).show();
+		};
 	});
 });
