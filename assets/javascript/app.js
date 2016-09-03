@@ -14,8 +14,10 @@ $(document).ready(function(){
 		$($startButton).toggleClass("button-hover");
 	});
 
+	//This function starts the game
 	$($startButton).click(function(){
 
+		//This objects holds all questions, answers, timer variable and calls runGame
 		var trivia = {
 			timer: 30,
 
@@ -75,6 +77,7 @@ $(document).ready(function(){
 		console.log("Start click works");  
 		selectQuestion();
 		
+		//Randomly selects questions and tracks them
 		function selectQuestion(){
 			if (selectedQuestions.length < 5){
 				
@@ -118,6 +121,7 @@ $(document).ready(function(){
 			
 		};
 
+		//This function takes the user's selection and outputs the correct/incorrect message
 		function runGame(goodAnswer, badAnswer1, badAnswer2, badAnswer3){
 			var gameTimer = setInterval(function(){timerCountdown(goodAnswer)}, 1000);
 
@@ -133,26 +137,32 @@ $(document).ready(function(){
 				badResult();
 				clearInterval(gameTimer);
 				setTimeout(selectQuestion(), 3000);
+				trivia.timer = 30;
 			});
 
 			$(badAnswer2).click(function(){
 				badResult();
 				clearInterval(gameTimer);
 				setTimeout(selectQuestion(), 3000);
+				trivia.timer = 30;
 			});
 
 			$(badAnswer3).click(function(){
 				badResult();
 				clearInterval(gameTimer);
 				setTimeout(selectQuestion(), 3000);
+				trivia.timer = 30;
 			});	
 		};
 
+
+		//This function is used in runGame to print a message if the incorrect answer is selected
 		function badResult(){
 			incorrectCount++;
 			$("#result").html("Incorrect!");
 		};
 
+		//This function 
 		function timerCountdown(goodAnswer){
 			if (trivia.timer > 0){
 				trivia.timer--
@@ -164,8 +174,8 @@ $(document).ready(function(){
 				$("#result").html("<p>Time is up! The correct answer is " + goodAnswer + "</p>")
 				setTimeout(selectQuestion(), 3000);
 			};
-		}; 
-		
+		};
+
 		function displayEndGame(){
 			$($answer1).html(correctCount);
 			$($answer2).html(incorrectCount);
