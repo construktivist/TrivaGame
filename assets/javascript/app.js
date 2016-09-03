@@ -82,23 +82,23 @@ $(document).ready(function(){
 			});
 			
 			$(badAnswer1).click(function(){
-				badResult();
+				badResult(goodAnswer);
 				clearInterval(gameTimer);
 			});
 
 			$(badAnswer2).click(function(){
-				badResult();
+				badResult(goodAnswer);
 				clearInterval(gameTimer);
 			});
 
 			$(badAnswer3).click(function(){
-				badResult();
+				badResult(goodAnswer);
 				clearInterval(gameTimer);
 			});	
 		};
 
 		function badResult(goodAnswer){
-			$("#result").html("Incorrect! the correct answer is" + goodAnswer);
+			$("#result").html("Incorrect!");
 		};
 
 		function timerCountdown(goodAnswer){
