@@ -6,6 +6,7 @@ $(document).ready(function(){
 	var $answer2 = $('#answer2');
 	var $answer3 = $('#answer3');
 	var $answer4 = $('#answer4');
+	var selectedQuestions = [];
 
 	$($startButton).hover(function(){
 		$($startButton).toggleClass("button-hover");
@@ -69,35 +70,80 @@ $(document).ready(function(){
 		
 		var gameTimer;
 		$(this).hide();
-		console.log("Start click works");
-		trivia.question1();
+		console.log("Start click works");  
+		selectQuestion();
+		
+		function selectQuestion(){
+			if (selectedQuestions.length < 5){
+				
+				var question = "question" + Math.ceil(Math.random() * 5);
+				while (selectedQuestions.indexOf(question) !== -1){
+					question = "question" + Math.ceil(Math.random() * 5);
+				};
+				
+				selectedQuestions.push(question);
+				
+				if (question == "question1"){
+					console.log("question1");
+					trivia.question1();
+				}
+				else if (question == "question2"){
+					console.log("question2");
+					trivia.question2();
+				}
+				else if (question == "question3"){
+					console.log("question3");
+					trivia.question3();
+				}
+				else if (question == "question4"){
+					console.log("question4");
+					trivia.question4();
+				}
+				else if (question == "question5"){
+					console.log("question5");
+					trivia.question5();
+				}
+				else{
+					console.log("Error: Question was not selected");
+				}
+			}
+			
+			else{
+				console.log("Game over");
+			}
+			
+		};
 
 		function runGame(goodAnswer, badAnswer1, badAnswer2, badAnswer3){
-
 			var gameTimer = setInterval(function(){timerCountdown(goodAnswer)}, 1000);
 
 			$(goodAnswer).click(function(){
 				$("#result").html("Correct!")
 				clearInterval(gameTimer);
+				setTimeout(selectQuestion(), 3000);
+				trivia.timer = 30;
 			});
 			
 			$(badAnswer1).click(function(){
-				badResult(goodAnswer);
+				badResult();
 				clearInterval(gameTimer);
+				setTimeout(selectQuestion(), 3000);
 			});
 
 			$(badAnswer2).click(function(){
-				badResult(goodAnswer);
+				badResult();
 				clearInterval(gameTimer);
+				setTimeout(selectQuestion(), 3000);
 			});
 
 			$(badAnswer3).click(function(){
-				badResult(goodAnswer);
+				badResult();
 				clearInterval(gameTimer);
+				setTimeout(selectQuestion(), 3000);
 			});	
 		};
 
-		function badResult(goodAnswer){
+		function badResult(){
 			$("#result").html("Incorrect!");
 		};
 
@@ -106,24 +152,12 @@ $(document).ready(function(){
 				trivia.timer--
 				$(".time").html(trivia.timer);
 				console.log(trivia.timer);
-				clearInterval(gameTimer);
 			}
 			else{
 				clearInterval(gameTimer);
-				console.log("Time is up! Correct answer is...");
 				$("#result").html("<p>Time is up! The correct answer is " + goodAnswer + "</p>")
+				setTimeout(selectQuestion(), 3000);
 			}
 		}; 
-
-
-
-
-		
-
-
-
-
-
 	});
-
 });
