@@ -129,28 +129,28 @@ $(document).ready(function(){
 				$("#result").html("Correct!")
 				correctCount++;
 				clearInterval(gameTimer);
-				setTimeout(selectQuestion(), 3000);
+				setTimeout(selectQuestion, 3000);
 				trivia.timer = 30;
 			});
 			
 			$(badAnswer1).click(function(){
 				badResult();
 				clearInterval(gameTimer);
-				setTimeout(selectQuestion(), 3000);
+				setTimeout(selectQuestion, 3000);
 				trivia.timer = 30;
 			});
 
 			$(badAnswer2).click(function(){
 				badResult();
 				clearInterval(gameTimer);
-				setTimeout(selectQuestion(), 3000);
+				setTimeout(selectQuestion, 3000);
 				trivia.timer = 30;
 			});
 
 			$(badAnswer3).click(function(){
 				badResult();
 				clearInterval(gameTimer);
-				setTimeout(selectQuestion(), 3000);
+				setTimeout(selectQuestion, 3000);
 				trivia.timer = 30;
 			});	
 		};
