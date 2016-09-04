@@ -23,7 +23,7 @@ $(document).ready(function(){
 
 			question1: function(){
 				console.log("Trivia object works");
-				$($question).html("What rock and roll start was the insipiration for Jack Sparrow?");
+				$($question).html("What rock and roll star was the insipiration for Jack Sparrow?");
 				$($answer1).html("Keith Richards");
 				$($answer2).html("Mick Jagger");
 				$($answer3).html("Steven Tyler");
@@ -79,7 +79,8 @@ $(document).ready(function(){
 		
 		//Randomly selects questions and tracks them
 		function selectQuestion(){
-			if (selectedQuestions.length < 5){
+			$("#result").html(" ");
+			if (selectedQuestions.length <= 5){
 				
 				var question = "question" + Math.ceil(Math.random() * 5);
 				while (selectedQuestions.indexOf(question) !== -1){
@@ -89,23 +90,18 @@ $(document).ready(function(){
 				selectedQuestions.push(question);
 				
 				if (question == "question1"){
-					console.log("question1");
 					trivia.question1();
 				}
 				else if (question == "question2"){
-					console.log("question2");
 					trivia.question2();
 				}
 				else if (question == "question3"){
-					console.log("question3");
 					trivia.question3();
 				}
 				else if (question == "question4"){
-					console.log("question4");
 					trivia.question4();
 				}
 				else if (question == "question5"){
-					console.log("question5");
 					trivia.question5();
 				}
 				else{
@@ -162,7 +158,7 @@ $(document).ready(function(){
 			$("#result").html("Incorrect!");
 		};
 
-		//This function 
+		//This function counts down the timer and displays messaging if the timer reaches 0
 		function timerCountdown(goodAnswer){
 			if (trivia.timer > 0){
 				trivia.timer--
@@ -176,6 +172,8 @@ $(document).ready(function(){
 			};
 		};
 
+
+		//This function displays the number of correct and incorrect answers and the start button
 		function displayEndGame(){
 			$($answer1).html(correctCount);
 			$($answer2).html(incorrectCount);
