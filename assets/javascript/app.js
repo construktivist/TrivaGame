@@ -6,7 +6,6 @@ $(document).ready(function(){
 	var $answer2 = $('#answer2');
 	var $answer3 = $('#answer3');
 	var $answer4 = $('#answer4');
-	var selectedQuestions = [];
 	var correctCount = 0;
 	var incorrectCount = 0;
 
@@ -19,6 +18,7 @@ $(document).ready(function(){
 
 		//This objects holds all questions, answers, timer variable and calls runGame
 		var trivia = {
+			currentQuestionCounter: 1,
 			timer: 30,
 
 			question1: function(){
@@ -71,37 +71,38 @@ $(document).ready(function(){
 				runGame($answer1, $answer2, $answer3, $answer4);
 			},
 		};
-		
-		var gameTimer;
-		$(this).hide();
-		console.log("Start click works");  
+
+		$(this).hide(); 
 		selectQuestion();
 		
 		//Randomly selects questions and tracks them
 		function selectQuestion(){
-			$("#result").html(" ");
-			if (selectedQuestions.length <= 5){
+			if (trivia.curentQuestion !== "null"){
 				
-				var question = "question" + Math.ceil(Math.random() * 5);
-				while (selectedQuestions.indexOf(question) !== -1){
-					question = "question" + Math.ceil(Math.random() * 5);
-				};
+				// var question = "question" + Math.ceil(Math.random() * 5);
+				// while (selectedQuestions.indexOf(question) !== -1){
+				// 	question = "question" + Math.ceil(Math.random() * 5);
+				// };
 				
-				selectedQuestions.push(question);
 				
-				if (question == "question1"){
+				if (trivia.currentQuestionCounter === 1){
+					trivia.currentQuestionCounter++
 					trivia.question1();
 				}
-				else if (question == "question2"){
+				else if (trivia.currentQuestionCounter === 2){
+					trivia.currentQuestionCounter++
 					trivia.question2();
 				}
-				else if (question == "question3"){
+				else if (trivia.currentQuestionCounter === 3){
+					trivia.currentQuestionCounter++
 					trivia.question3();
 				}
-				else if (question == "question4"){
+				else if (trivia.currentQuestionCounter === 4){
+					trivia.currentQuestionCounter++
 					trivia.question4();
 				}
-				else if (question == "question5"){
+				else if (trivia.currentQuestionCounter === 5){
+					trivia.currentQuestionCounter++
 					trivia.question5();
 				}
 				else{
@@ -122,32 +123,33 @@ $(document).ready(function(){
 			var gameTimer = setInterval(function(){timerCountdown(goodAnswer)}, 1000);
 
 			$(goodAnswer).click(function(){
+				clearInterval(gameTimer);
+				trivia.timer = 30;
+				setTimeout(selectQuestion, 3000);
 				$("#result").html("Correct!")
 				correctCount++;
-				clearInterval(gameTimer);
-				setTimeout(selectQuestion, 3000);
-				trivia.timer = 30;
 			});
 			
 			$(badAnswer1).click(function(){
 				badResult();
 				clearInterval(gameTimer);
-				setTimeout(selectQuestion, 3000);
 				trivia.timer = 30;
+				setTimeout(selectQuestion, 3000);
 			});
 
 			$(badAnswer2).click(function(){
 				badResult();
 				clearInterval(gameTimer);
-				setTimeout(selectQuestion, 3000);
 				trivia.timer = 30;
+				setTimeout(selectQuestion, 3000);
 			});
 
 			$(badAnswer3).click(function(){
 				badResult();
 				clearInterval(gameTimer);
-				setTimeout(selectQuestion, 3000);
 				trivia.timer = 30;
+				setTimeout(selectQuestion, 3000);
+				
 			});	
 		};
 
@@ -167,8 +169,11 @@ $(document).ready(function(){
 			}
 			else{
 				clearInterval(gameTimer);
+				setTimeout(selectQuestion, 3000);
+				trivia.timer = 30;
 				$("#result").html("<p>Time is up! The correct answer is " + goodAnswer + "</p>")
-				setTimeout(selectQuestion(), 3000);
+				
+				
 			};
 		};
 
